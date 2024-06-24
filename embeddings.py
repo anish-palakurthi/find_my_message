@@ -24,25 +24,25 @@ def main():
         db_path
     )
 
+    # Limit the number of messages to the head (e.g., first 10 messages)
+    head_messages = messages[:10]
+
     # Print the earliest message by date
-    if messages:
-        text, contact_name, timestamp = messages[0]
+    if head_messages:
+        text, contact_name, timestamp = head_messages[0]
         readable_date = convert_timestamp(timestamp)
         print(f"Earliest Message - Text: {text}, Contact: {contact_name}, Date: {readable_date}")
     else:
         print("No messages found.")
 
-    # Extract messages
-    messages = extract_messages('~/Library/Messages/chat.db')
-
-    # Print all messages sorted by date
-    for message in messages:
+    # Print all head messages sorted by date
+    for message in head_messages:
         text, contact_name, timestamp = message
         readable_date = convert_timestamp(timestamp)
         print(f"Text: {text}, Contact: {contact_name}, Date: {readable_date}")
 
-    # Generate embeddings and create Annoy index
-    generate_and_save_embeddings(messages)
+    # Generate embeddings and create Annoy index for head messages
+    generate_and_save_embeddings(head_messages)
 
 def query_address_book(db_path):
     db_path = os.path.expanduser(db_path)
