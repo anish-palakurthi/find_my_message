@@ -1,0 +1,10 @@
+Neighbor ID: 4885, Info: {'text': 'you can also maybe reverse engineer the comments loading function (if thats all you need)', 'phone_number': '12148374477'}
+Neighbor ID: 8068, Info: {'text': 'P sure that just means zero interest + happens to be sending decent messages for some reason', 'phone_number': None}
+Neighbor ID: 18718, Info: {'text': 'Combined cache methods', 'phone_number': '+15129150088'}
+Neighbor ID: 2236, Info: {'text': 'Actual data is probably significantly higher', 'phone_number': '18329528497'}
+Neighbor ID: 12735, Info: {'text': 'Bro needs those referral codes', 'phone_number': None}
+Neighbor ID: 16401, Info: {'text': 'If it get like 1 or 2 V’s for a term idt colleges would mind ', 'phone_number': None}
+Neighbor ID: 3049, Info: {'text': 'Lmk if y’all have any input for future posts/this current one', 'phone_number': None}
+Neighbor ID: 12223, Info: {'text': 'Postmates delivery code', 'phone_number': None}
+Neighbor ID: 2518, Info: {'text': 'code for what', 'phone_number': '4694456346'}
+Neighbor ID: 13457, Info: {'text': 'If databricks is your goal, product wise this is extremely relevant', 'phone_number': None}

@@ -1,1 +1,3 @@
-myenv
+**/*.ann
+mappings.json
+message_embeddings.ann
