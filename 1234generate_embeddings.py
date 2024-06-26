@@ -6,7 +6,9 @@ from annoy import AnnoyIndex
 import spacy
 import json
 from spacy.lang.en.stop_words import STOP_WORDS
-from itertools import islice
+from transformers import RobertaModel, RobertaTokenizer
+
+
 
 
 # Define constants
@@ -104,10 +106,14 @@ def convert_timestamp(macos_timestamp):
 
 
 def generate_embeddings(texts):
-    nlp = spacy.load('en_core_web_lg')
+    tokenizer = RobertaTokenizer.from_pretrained('roberta-large')
+    model = RobertaModel.from_pretrained('roberta-large')
+
     embeddings = []
-    for doc in nlp.pipe(texts):
-        embeddings.append(doc.vector)
+    for text in texts:
+        inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)
+        outputs = model(**inputs)
+        embeddings.append(outputs.last_hidden_state.mean(dim=1).detach().numpy())
     return np.array(embeddings)
 
 
@@ -148,14 +154,17 @@ def generate_and_save_embeddings(messages):
 
 def test_annoy_index(query_text):
     # Load the Annoy index
-    index = AnnoyIndex(300, 'angular')  # 300 is the dimension of the vectors
+    index = AnnoyIndex(1024, 'angular')  # 1024 is the dimension of the vectors for roberta-large
     index.load('message_embeddings.ann')
 
-    # Load the spaCy model
-    nlp = spacy.load('en_core_web_lg')
+    # Load the Roberta model and tokenizer
+    tokenizer = RobertaTokenizer.from_pretrained('roberta-large')
+    model = RobertaModel.from_pretrained('roberta-large')
 
     # Prepare the search query vector
-    query_vector = nlp(query_text).vector
+    inputs = tokenizer(query_text, return_tensors='pt', truncation=True, padding=True)
+    outputs = model(**inputs)
+    query_vector = outputs.last_hidden_state.mean(dim=1).detach().numpy()
 
     # Load the additional data from mappings.json
     with open('mappings.json', 'r') as f:
@@ -230,6 +239,6 @@ def test_annoy_index(query_text):
         print(f"Neighbor ID: {neighbor}, Score: {score}, Info: {info}")
  """
 if __name__ == "__main__":
-    # update_vector_db()
-    test_annoy_index("leetcode problem capacitor")
+    update_vector_db()
+    test_annoy_index("this is my startup idea")
     
